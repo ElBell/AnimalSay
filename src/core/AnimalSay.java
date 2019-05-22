@@ -2,41 +2,56 @@
  * Encapsulation: Bundle together related data into an object
  *  Animals have name, kind, mouthX, etc.
  * Inheritance: IS-A relationships
- *  Dog is-a Animal
+ *  Giraffe is-a Animal
  * Polymorphism: Access a subclass generically
- *  Speech.speak()
+ *  Speech.say()
  * Abstraction: Keep things from knowing unnecessary things
  *  Separate balloon and dog
  */
 package core;
 
+import Bubbles.Bubble;
+import Bubbles.SpeechBubble;
+import animals.Animal;
 import animals.Dog;
 import animals.Giraffe;
 
-/**
- * @author acbart
- *
- */
-public class AnimalSay {
+import java.util.Scanner;
 
-    /**
-     * @param args
-     */
+public class AnimalSay {
+    private static Scanner scanner = new Scanner(System.in);
+    private static String userInput;
+    private static Animal speakingAnimal = null;
+
     public static void main(String[] args) {
-        Dog carlos = new Dog("Carlos");
-        carlos.speak("Bark! Bark!");
-                
-        carlos.stretch(3);
-        carlos.speak("Bark!\nBark!");
-        
-        carlos.stretch(-15);
-        carlos.speak("What an eloquent dog!");
-        
-        Giraffe jeff = new Giraffe("Jeff");
-        jeff.speak("<Giraffe noises!>");
-        
-        jeff.grow(5);
-        jeff.speak("<Really Tall Giraffe noises!>");
+        getUserInput();
+        printMessageWithAnimal();
+    }
+
+    private static void printMessageWithAnimal() {
+        String message = userInput.substring(userInput.indexOf(" ") + 1);
+        Bubble bubble = new SpeechBubble(message);
+        speakingAnimal.say(bubble);
+    }
+
+    private static void getUserInput() {
+        while (speakingAnimal == null) {
+            System.out.println("What animal would you like to talk to?");
+            userInput = scanner.nextLine();
+            String firstWordInInput = userInput.substring(0, userInput.indexOf(" "));
+            speakingAnimal = getAnimal(firstWordInInput);
+        }
+    }
+
+    private static Animal getAnimal(String requestedAnimal) {
+        switch (requestedAnimal.toLowerCase().trim()) {
+            case "dogsay":
+                return new Dog();
+            case "giraffesay":
+                return new Giraffe();
+                default:
+                    return null;
+        }
     }
 
 }

@@ -3,35 +3,31 @@
  */
 package animals;
 
-import balloons.Balloon;
-import balloons.SpeechBalloon;
+import Bubbles.Bubble;
 
-/**
- * @author acbart
- *
- */
 public abstract class Animal {
-    protected int mouthX;
-    protected String name;
-    protected Balloon speechStyle;
+    private int mouthLocation;
+    private String body;
     
-    public Animal(String name) {
-        this.name = name;
-        this.speechStyle = new SpeechBalloon();
+    public Animal() {
     }
 
-    protected int getMouthX() {
-        return mouthX;
-    }
+    abstract void drawBody();
     
-    public void speak(String message) {
-        System.out.println(speechStyle.draw(message, mouthX) + drawAnimal());
-        System.out.println("says "+this.name+" the "+this.getKind());
+    public void say(Bubble bubble) {
+        System.out.println(bubble.draw(mouthLocation) + body);
+        System.out.println("says the "+this.getKind());
     }
-    
+
+    public void setMouthLocation(int mouthLocation) {
+        this.mouthLocation = mouthLocation;
+    }
+
+    void setBody(String body) {
+        this.body = body;
+    }
+
     protected String getKind() {
         return "Generic Animal";
     }
-
-    protected abstract String drawAnimal();
 }

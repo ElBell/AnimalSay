@@ -5,44 +5,28 @@ package animals;
 
 import utils.Utilities;
 
-/**
- * @author acbart
- *
- */
+import java.util.Random;
+
 public class Dog extends Animal {
-    
+
+    private static final String UNFORMATTED_BODY =
+            "         %s  .-.\n(________%s_() 0`-,\n(   _____%s /--=\n//\\\\   %s//\\\\\n\"\" \"\"%s  \"\" \"\"\n";
     private int bodyWidth;
     
+    public Dog() {
+        this.bodyWidth = new Random().nextInt(60);
+        setMouthLocation(bodyWidth+13);
+        drawBody();
+    }
+
     protected String getKind() {
         return "Dog";
     }
-    
-    public void stretch(int units) {
-        this.bodyWidth += units;
-        this.mouthX += units;
-    }
-    
-    public Dog(String name) {
-        super(name);
-        this.bodyWidth = 20;
-        this.mouthX = bodyWidth+13;
-    }
 
     @Override
-    public String drawAnimal() {
-        //String line = "`/"+Utilities.repeat("-", bodyWidth)+"\\*";
-        
-        String w = Utilities.repeat(" ", bodyWidth);
-        String _ = Utilities.repeat("_", bodyWidth);
-        
-        String line = (
-        "         "+w+"  .-.\n"+
-        "(________"+_+"_()6 `-,\n"+
-        "(   _____"+_+" /''\"`\n"+
-        "//\\\\   "+w+"//\\\\\n"+
-        "\"\" \"\""+w+"  \"\" \"\"\n"
-        );
-        
-        return line;
+    void drawBody() {
+        String spaces = Utilities.repeat(" ", bodyWidth);
+        String lines = Utilities.repeat("_", bodyWidth);
+        setBody(String.format(UNFORMATTED_BODY, spaces, lines, lines, spaces, spaces));
     }
 }

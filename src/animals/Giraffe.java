@@ -2,37 +2,28 @@ package animals;
 
 import utils.Utilities;
 
+import java.util.Random;
+
 public class Giraffe extends Animal {
 
-    private int neckHeight;
+    private static final String UNFORMATTED_BODY =
+            "       .-\",\n       `~||\n%s         ||___\n         (':.)`\n         || ||\n         || ||\n         ^^ ^^\n";
+
+    private int bodyHeight;
     
+    public Giraffe() {
+        this.bodyHeight = new Random().nextInt(20);
+        setMouthLocation(6);
+        drawBody();
+    }
+
     protected String getKind() {
         return "Giraffe";
     }
-    
-    public void grow(int units) {
-        this.neckHeight += units;
-    }
-    
-    public Giraffe(String name) {
-        super(name);
-        this.neckHeight = 0;
-        this.mouthX = 6;
-    }
 
     @Override
-    public String drawAnimal() {        
-        String head = (
-            "       .-\",\n"+
-            "       `~||\n");
-        String body = (
-            "         ||___\n"+
-            "         (':.)`\n"+
-            "         || ||\n"+
-            "         || ||\n"+
-            "         ^^ ^^\n");
-        String neck = Utilities.repeat("         ||\n", neckHeight); 
-        
-        return head+neck+body;
+    public void drawBody() {
+        String neck = Utilities.repeat("         ||\n", bodyHeight);
+        setBody(String.format(UNFORMATTED_BODY, neck));
     }
 }
