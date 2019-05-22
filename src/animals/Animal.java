@@ -16,7 +16,7 @@ public abstract class Animal {
     
     public void say(Bubble bubble) {
         System.out.println(bubble.draw(mouthLocation) + body);
-        System.out.println("says the "+this.getKind());
+        System.out.println("Says the "+this.getKind());
     }
 
     public void setMouthLocation(int mouthLocation) {
